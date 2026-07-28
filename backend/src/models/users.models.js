@@ -1,0 +1,32 @@
+import pool from "../config/db";
+
+
+export const getAllUserService = async () => {
+
+    const result = await pool.query("SELECT * FROM user");
+    return result.rows;
+}
+
+export const getUserByIdService = async (id) => {
+    const result = await pool.query("SELECT * FROM user WHERE id=$1 ", [id]);
+    return result.rows[0]
+}
+
+export const createUserService = async (name, email) => {
+    const result = await pool.query("INSERT INTO user (name,email) VALUES($1,$2) RETURNING *", [name, email]);
+    
+    return result.rows[0];
+}
+
+
+export const updateUserService = async (id, name, email) => {
+    const result = await pool.query("UPDATE user SET name=$1 , email=$2 WHERE id=$3 RETURNING *", [id, name, email])
+
+    return result.rows[0]
+}
+export const deleteUserService = async (id) => {
+    const result = await pool.query("DELETE FROM user WHERE id=$1 RETURNING *", [id]);
+
+    return result.rows[0]
+
+}
