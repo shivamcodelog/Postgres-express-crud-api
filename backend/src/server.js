@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import pool from "./config/db.js";
 import  errorHandling  from "./middlewares/error.middleware.js"
+import router from "./routes/user.routes.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors())
 
 //Routes 
+app.use("/api",router)
 
 
 // Error handling
