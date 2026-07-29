@@ -4,6 +4,7 @@ import cors from "cors"
 import pool from "./config/db.js";
 import  errorHandling  from "./middlewares/error.middleware.js"
 import router from "./routes/user.routes.js";
+import createUserTable from "./db/createUserTable.js";
 
 dotenv.config();
 
@@ -21,6 +22,10 @@ app.use("/api",router)
 
 // Error handling
 app.use(errorHandling)
+
+// Create table before staring server
+await createUserTable()
+
 
 // Testing Postgre connnection
 app.get("/",async(req,res)=>{
